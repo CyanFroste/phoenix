@@ -1,0 +1,236 @@
+@import url("https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+:root {
+  font-size: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #fafafa;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #adadad;
+}
+
+body {
+  font-size: 1.4rem;
+  letter-spacing: 0.025em;
+  font-family: "Jost", sans-serif;
+  background-color: #fefeff;
+  color: #141414;
+}
+
+h1,
+h2 {
+  font-size: 3rem;
+  color: #141414;
+}
+
+button {
+  outline: none;
+  border: none;
+  font-family: "Jost", sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: transparent;
+  font-size: 1.4rem;
+  letter-spacing: 0.025em;
+  cursor: pointer;
+}
+
+input {
+  font-family: "Jost", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 200px;
+  background-color: #141414;
+  padding: 40px 20px;
+  color: #fefeff;
+}
+
+.sidebar .buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100%;
+}
+
+.sidebar .buttons button {
+  color: #fefeff;
+  padding: 0 10px;
+  margin: 5px 0;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+main {
+  height: 100vh;
+  padding: 20px;
+  padding-left: 220px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+main .top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 20px;
+  margin-left: 5px;
+}
+
+main .top .add {
+  margin-left: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+main .top .add input {
+  height: 30px;
+  border: 0;
+  outline: none;
+  padding: 0 10px;
+  border-bottom: 1px solid #c7c7c7;
+}
+
+main .top .add button {
+  padding: 5px;
+  border-radius: 50%;
+  margin-left: 10px;
+  -webkit-transition: 200ms ease-in-out;
+  transition: 200ms ease-in-out;
+}
+
+main .top .add button:hover {
+  color: #fefeff;
+  background-color: #1b998b;
+}
+
+main .view-holder {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  max-height: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+main .view-holder .view {
+  padding: 5px;
+  width: 100%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  display: -ms-grid;
+  display: grid;
+  gap: 20px;
+  -ms-grid-columns: (500px)[auto-fill];
+      grid-template-columns: repeat(auto-fill, 500px);
+}
+
+main .view-holder .card {
+  max-height: 200px;
+  height: 200px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 1px 3px rgba(20, 20, 20, 0.12), 0 1px 2px rgba(20, 20, 20, 0.24);
+          box-shadow: 0 1px 3px rgba(20, 20, 20, 0.12), 0 1px 2px rgba(20, 20, 20, 0.24);
+  padding-right: 40px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+main .view-holder .card img {
+  min-width: 128px;
+  width: 128px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-right: 10px;
+}
+
+main .view-holder .card .details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 5px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+main .view-holder .card .details div:not(:last-child) {
+  margin-bottom: 5px;
+}
+
+main .view-holder .card .details div.name {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+main .view-holder .card .controls {
+  right: 0;
+  height: 100%;
+  padding: 5px;
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+main .view-holder .card .controls button:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+main .view-holder .card .controls .source {
+  justify-self: flex-end;
+  margin-top: auto;
+}
+
+main .view-holder .card.font-light {
+  color: #fefeff;
+}
+
+main .view-holder .card.font-light svg {
+  color: #fefeff;
+}
+/*# sourceMappingURL=main.css.map */

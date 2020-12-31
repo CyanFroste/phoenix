@@ -1,0 +1,42 @@
+@import './shared';
+
+main {
+  padding: $m;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  h1.title {
+    margin-bottom: $s;
+  }
+
+  .message {
+    font-size: 1.6rem;
+    em {
+      font-weight: 500;
+    }
+  }
+
+  .controls {
+    display: flex;
+    justify-self: flex-end;
+    align-self: flex-end;
+    margin-top: auto;
+    button {
+      font-weight: 500;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      padding: $xs $m;
+      border-radius: $br;
+      transition: all 200ms ease-in-out;
+    }
+    button:hover {
+      color: $text-alter;
+      background-color: $primary;
+    }
+    button:not(:last-child) {
+      margin-right: $s;
+    }
+  }
+
+}
