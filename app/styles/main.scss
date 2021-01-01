@@ -4,7 +4,7 @@
 @import './placeholders';
 
 main {
-  height: 100vh;
+  height: calc(100vh - 32px); // for the title bar
   padding: $m;
   padding-left: 220px;
   display: flex;
@@ -134,9 +134,10 @@ main {
       }
     }
 
-    .card.font-light {     
+    .card.font-light {
       color: $text-alter;
-      svg, button {
+      svg,
+      button {
         color: $text-alter;
       }
     }

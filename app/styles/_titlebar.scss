@@ -1,0 +1,42 @@
+
+
+#title-bar {
+  z-index: 1000;
+  height: 32px;
+  background-color: $bg-alter;
+  display: flex;
+  #draggable {
+    margin: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% - 8px);
+    height: 24px;
+    -webkit-app-region: drag;
+
+    .title {
+      color: $primary;
+      font-size: 1.6rem;
+      margin-left: $m;
+      font-weight: 500;
+    }
+  }
+  .controls {
+    height: 32px;
+    padding: 0 $xs;
+    display: flex;
+    align-items: center;
+    button {
+      padding: 0 $xs;
+      color: $text-alter;
+    }
+  }
+}
+
+
+#title-bar.alter {
+  background-color: $bg;
+  button {
+    color: $text;
+  }
+}

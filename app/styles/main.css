@@ -27,6 +27,7 @@ body {
   font-family: "Jost", sans-serif;
   background-color: #fefeff;
   color: #141414;
+  border-radius: 5px;
 }
 
 h1,
@@ -61,10 +62,66 @@ a {
   text-decoration: none;
 }
 
+#title-bar {
+  z-index: 1000;
+  height: 32px;
+  background-color: #141414;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#title-bar #draggable {
+  margin: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: calc(100% - 8px);
+  height: 24px;
+  -webkit-app-region: drag;
+}
+
+#title-bar #draggable .title {
+  color: #1b998b;
+  font-size: 1.6rem;
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+#title-bar .controls {
+  height: 32px;
+  padding: 0 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#title-bar .controls button {
+  padding: 0 5px;
+  color: #fefeff;
+}
+
+#title-bar.alter {
+  background-color: #fefeff;
+}
+
+#title-bar.alter button {
+  color: #141414;
+}
+
 .sidebar {
   position: fixed;
   left: 0;
-  top: 0;
+  top: 32px;
   height: 100vh;
   width: 200px;
   background-color: #141414;
@@ -85,8 +142,8 @@ a {
 
 .sidebar .buttons button {
   color: #fefeff;
-  padding: 0 10px;
-  margin: 5px 0;
+  padding: 0 5px;
+  margin: 10px 0;
 }
 
 #toast {
@@ -141,7 +198,7 @@ a {
 }
 
 main {
-  height: 100vh;
+  height: calc(100vh - 32px);
   padding: 20px;
   padding-left: 220px;
   display: -webkit-box;
@@ -328,7 +385,8 @@ main .view-holder .card.font-light {
   color: #fefeff;
 }
 
-main .view-holder .card.font-light svg, main .view-holder .card.font-light button {
+main .view-holder .card.font-light svg,
+main .view-holder .card.font-light button {
   color: #fefeff;
 }
 /*# sourceMappingURL=main.css.map */

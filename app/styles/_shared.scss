@@ -58,6 +58,7 @@ body {
   font-family: $body;
   background-color: $bg;
   color: $text;
+  border-radius: $br;
 }
 
 h1,
@@ -87,3 +88,5 @@ input {
 a {
   text-decoration: none;
 }
+
+@import 'titlebar';

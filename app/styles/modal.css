@@ -27,6 +27,7 @@ body {
   font-family: "Jost", sans-serif;
   background-color: #fefeff;
   color: #141414;
+  border-radius: 5px;
 }
 
 h1,
@@ -61,8 +62,71 @@ a {
   text-decoration: none;
 }
 
+#title-bar {
+  z-index: 1000;
+  height: 32px;
+  background-color: #141414;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#title-bar #draggable {
+  margin: 4px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: calc(100% - 8px);
+  height: 24px;
+  -webkit-app-region: drag;
+}
+
+#title-bar #draggable .title {
+  color: #1b998b;
+  font-size: 1.6rem;
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+#title-bar .controls {
+  height: 32px;
+  padding: 0 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#title-bar .controls button {
+  padding: 0 5px;
+  color: #fefeff;
+}
+
+#title-bar.alter {
+  background-color: #fefeff;
+}
+
+#title-bar.alter button {
+  color: #141414;
+}
+
+#draggable {
+  height: 32px;
+  width: 100%;
+  -webkit-app-region: drag;
+}
+
 main {
   padding: 20px;
+  padding-top: 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -70,7 +134,7 @@ main {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 32px);
 }
 
 main h1.title {

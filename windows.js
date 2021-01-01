@@ -2,9 +2,13 @@ const { BrowserWindow } = require('electron')
 
 function createMain() {
   const win = new BrowserWindow({
-    width: 1360,
-    height: 800,
+    width: 1270,
+    height: 700,    
+    minWidth: 1270,
+    minHeight: 700,
+    frame: false,
     webPreferences: {
+      enableRemoteModule: true,
       nodeIntegration: true
     }
   })
@@ -19,8 +23,11 @@ function createModal(parent) {
     parent,
     modal: true, // this is causing a flickering issue
     show: false,
+    frame: false,
+    resizable: false,
     autoHideMenuBar: true,
     webPreferences: {
+      enableRemoteModule: true,
       nodeIntegration: true
     }
   })

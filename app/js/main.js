@@ -4,6 +4,7 @@ import View from './components/view.js'
 import Err from './components/error.js'
 import { composeOptions, capitalize } from './utilities.js'
 import { sortPriority, sortDate } from './components/buttons.js'
+import Titlebar from './components/titlebar.js'
 
 const toast = document.getElementById('toast')
 const title = document.getElementById('title')
@@ -12,6 +13,7 @@ const sorter = document.getElementById('sorter')
 //  states
 let data
 let filter = 'bookmarks'
+let adding = false
 
 // sort orders
 let date = 0 // 1 = desc' : latest to last
@@ -20,15 +22,20 @@ let priority = 1 // 2 = 'asc' : high to low, 0 = 'no order'
 // add component
 let add = new Add('.add')
 
-// server driven render
-ipcRenderer.on('render', async () => await render())
+window.addEventListener('load', async () => {
+  new Titlebar('phoenix')
+  await render()
 
-document.querySelectorAll('.filter').forEach((btn) =>
-  btn.addEventListener('click', async (e) => {
-    filter = btn.id
-    await render()
-  })
-)
+  // server driven render
+  ipcRenderer.on('render', async () => await render())
+
+  document.querySelectorAll('.filter').forEach((btn) =>
+    btn.addEventListener('click', async (e) => {
+      filter = btn.id
+      await render()
+    })
+  )
+})
 
 async function render() {
   // get data
@@ -113,16 +120,17 @@ function attachEventListeners() {
   // conditionally add listener to the add bookmark
   if (filter === 'bookmarks')
     document.getElementById('add').addEventListener('click', async (e) => {
+      if (adding) return new Err(toast, 'Specified anime is being added', 2000)
       const id = document.getElementById('anime-id').value
       try {
+        adding = true
         await ipcRenderer.invoke('anime:add', id)
+        adding = false
         await render()
+        id.value = ''
       } catch (err) {
+        adding = false
         new Err(toast, err.message, 2000)
       }
     })
 }
-
-window.addEventListener('load', async () => {
-  await render()
-})
