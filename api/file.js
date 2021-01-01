@@ -29,7 +29,7 @@ function append(entry) {
     data.bookmarks.unshift(entry)
     fs.writeFile(DATA_PATH, JSON.stringify(data), (err) => {
       if (err) return reject(err)
-      resolve('added to bookmarks')
+      resolve('added')
     })
   })
 }
@@ -50,7 +50,7 @@ function modify(id, values) {
     })
     fs.writeFile(DATA_PATH, JSON.stringify(data), (err) => {
       if (err) return reject(err)
-      resolve('modified ' + id)
+      resolve('modified')
     })
   })
 }
@@ -65,7 +65,7 @@ function remove(id) {
     data.bookmarks = data.bookmarks.filter((entry) => entry.id !== id)
     fs.writeFile(DATA_PATH, JSON.stringify(data), (err) => {
       if (err) return reject(err)
-      resolve('modified ' + id)
+      resolve('modified')
     })
   })
 }
@@ -78,7 +78,7 @@ function write(data) {
   return new Promise((resolve, reject) => {
     fs.writeFile(DATA_PATH, JSON.stringify(data), (err) => {
       if (err) return reject(err)
-      resolve('written to data')
+      resolve('written')
     })
   })
 }

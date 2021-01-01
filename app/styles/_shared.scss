@@ -71,6 +71,9 @@ button {
   border: none;
   font-family: $body;
   display: flex;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: 500;
   background-color: transparent;
   font-size: 1.4rem;
   letter-spacing: 0.025em;

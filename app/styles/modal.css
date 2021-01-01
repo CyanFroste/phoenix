@@ -42,6 +42,11 @@ button {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-transform: uppercase;
+  font-weight: 500;
   background-color: transparent;
   font-size: 1.4rem;
   letter-spacing: 0.025em;
@@ -69,14 +74,17 @@ main {
 }
 
 main h1.title {
+  font-size: 2rem;
   margin-bottom: 10px;
 }
 
 main .message {
   font-size: 1.6rem;
+  height: 100%;
 }
 
 main .message em {
+  color: #1b998b;
   font-weight: 500;
 }
 
@@ -87,13 +95,9 @@ main .controls {
   justify-self: flex-end;
   -ms-flex-item-align: end;
       align-self: flex-end;
-  margin-top: auto;
 }
 
 main .controls button {
-  font-weight: 500;
-  font-size: 1.6rem;
-  text-transform: uppercase;
   padding: 5px 20px;
   border-radius: 5px;
   -webkit-transition: all 200ms ease-in-out;
@@ -106,6 +110,6 @@ main .controls button:hover {
 }
 
 main .controls button:not(:last-child) {
-  margin-right: 10px;
+  margin-right: 20px;
 }
 /*# sourceMappingURL=modal.css.map */

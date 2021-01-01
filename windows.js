@@ -15,7 +15,7 @@ function createMain() {
 function createModal(parent) {
   const win = new BrowserWindow({
     width: 600,
-    height: 400,
+    height: 300,
     parent,
     modal: true, // this is causing a flickering issue
     show: false,

@@ -1,0 +1,17 @@
+.placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .message {
+    font-weight: 500;
+    color: $primary;
+    padding-bottom: $xs;
+    border-bottom: $border-light;
+  }
+}
+.placeholder.no-data .message {
+  margin-bottom: 100px;
+}

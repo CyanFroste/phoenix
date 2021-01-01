@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Anime</title>
+  <title>phoenix</title>
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
   <link rel="stylesheet" type="text/css" href="./styles/main.css">
 </head>
@@ -20,16 +20,17 @@
   </aside>
 
   <main>
-
-
-
-
     <section class="top">
       <h1 id="title">
         <!-- render title here -->
       </h1>
-      <div class="add">
-        <!-- render add input and button here -->
+      <div class="controls">
+        <div id="sorter">
+          <!-- render buttons dynamically -->
+        </div>
+        <div class="add">
+          <!-- render add input and button here -->
+        </div>
       </div>
     </section>
 
@@ -37,8 +38,8 @@
       <!-- bookmarks list gets rendered here -->
     </section>
 
-    <section id="error">
-      <!-- errors get rendered here -->
+    <section id="toast">
+      <!-- notification and errors get rendered here -->
     </section>
   </main>
 

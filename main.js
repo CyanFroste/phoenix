@@ -1,7 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const { createMain, createModal } = require('./windows')
 const { read } = require('./api/file')
-const { bookmark, favorite, unbookmark, watched } = require('./api/anilist')
+const { bookmark, favorite, unbookmark, watched, prioritize } = require('./api/anilist')
 
 // window instances
 /** @type {BrowserWindow} */
@@ -29,12 +29,16 @@ ipcMain.handle('anime:remove', async (e, id) => {
   await unbookmark(id)
 })
 // mark anime as favorite
-ipcMain.handle('anime:fav', async (e, id) => {
-  await favorite(id)
+ipcMain.handle('anime:fav', async (e, id, value) => {
+  await favorite(id, value)
 })
 // mark anime as watched
-ipcMain.handle('anime:watched', async (e, id) => {
-  await watched(id)
+ipcMain.handle('anime:watched', async (e, id, value) => {
+  await watched(id, value)
+})
+// change priority of anime
+ipcMain.handle('anime:priority', async (e, id, priority) => {
+  await prioritize(id, priority)
 })
 
 // modal

@@ -1,16 +1,20 @@
 {
-  "name": "notes",
+  "name": "phoenix",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",   
+    "package": "electron-packager . phoenix --overwrite --asar --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=build --version-string.CompanyName=\"Cyan Froste\" --version-string.FileDescription=\"Cyan Froste\" --version-string.ProductName=\"phoenix\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "anilist-node": "^1.6.0",
-    "electron": "^11.1.1"
+    "anilist-node": "^1.6.0"
+  },
+  "devDependencies": {
+    "electron": "^11.1.1",
+    "electron-packager": "^15.2.0"
   }
 }

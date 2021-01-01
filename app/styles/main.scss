@@ -1,5 +1,7 @@
 @import './shared';
 @import './sidebar';
+@import './toast';
+@import './placeholders';
 
 main {
   height: 100vh;
@@ -7,12 +9,40 @@ main {
   padding-left: 220px;
   display: flex;
   flex-direction: column;
-
   .top {
-    display: flex;
     margin-bottom: $m;
     margin-left: $xs;
-    
+
+    .controls {
+      margin: $s 0;
+      display: flex;
+      align-items: center;
+    }
+
+    #sorter {
+      height: $s + $m;
+      display: flex;
+      align-items: center;
+
+      button {
+        padding: $xs $s;
+        transition: 200ms ease-in-out;
+        border-radius: $br;
+      }
+      button:hover {
+        background-color: $primary;
+        color: $text-alter;
+      }
+
+      button:not(:last-child) {
+        margin-right: $s;
+      }
+
+      button svg {
+        margin-left: $xs;
+      }
+    }
+
     .add {
       margin-left: $m;
       display: flex;
@@ -88,6 +118,12 @@ main {
         position: absolute;
         display: flex;
         flex-direction: column;
+
+        button {
+          font-weight: 600;
+          justify-content: center;
+        }
+
         button:not(:last-child) {
           margin-bottom: $s;
         }
@@ -98,9 +134,9 @@ main {
       }
     }
 
-    .card.font-light {
+    .card.font-light {     
       color: $text-alter;
-      svg {
+      svg, button {
         color: $text-alter;
       }
     }

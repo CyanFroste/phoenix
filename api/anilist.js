@@ -5,9 +5,10 @@ const Anilist = new anilist()
 
 /** @param {string|number} id */
 async function bookmark(id) {
-  if (exists(+id)) throw new Error('already exists')
+  if (id === '') throw new Error('message:Please enter a valid Anilist id')
+  if (exists(+id)) throw new Error('message:Bookmark already exists')
   const res = await Anilist.media.anime(+id)
-  if (!res.id) throw new Error('anime not found')
+  if (!res.id) throw new Error('message:Anime not found on Anilist')
   return append({
     id: res.id,
     title: res.title.userPreferred,
@@ -22,30 +23,42 @@ async function bookmark(id) {
     related: res.relations,
     url: res.siteUrl,
     favorite: false,
-    watched: false
+    watched: false,
+    date: Date.now(),
+    priority: 1 // 2: high > 1: medium > 0: low
   })
 }
 
 /** @param {string|number} id */
-async function favorite(id) {
-  if (!exists(+id)) throw new Error("doesn't exist")
-  return modify(+id, { favorite: !find(+id).favorite })
+async function favorite(id, favorite) {
+  if (!exists(+id)) throw new Error("message:Operation on entry that doesn't exist")
+  return modify(+id, { favorite })
 }
 /** @param {string|number} id */
-async function watched(id) {
-  if (!exists(+id)) throw new Error("doesn't exist")
-  return modify(+id, { watched: !find(+id).watched })
+async function watched(id, watched) {
+  if (!exists(+id)) throw new Error("message:Operation on entry that doesn't exist")
+  return modify(+id, { watched })
 }
 
 /** @param {string|number} id */
 async function unbookmark(id) {
-  if (!exists(+id)) throw new Error("doesn't exist")
+  if (!exists(+id)) throw new Error("message:Operation on entry that doesn't exist")
   return remove(+id)
+}
+
+/**
+ * @param {string|number} id
+ * @param {number} priority
+ */
+async function prioritize(id, priority) {
+  if (!exists(+id)) throw new Error("message:Operation on entry that doesn't exist")
+  return modify(+id, { priority })
 }
 
 module.exports = {
   bookmark,
   unbookmark,
   favorite,
-  watched
+  watched,
+  prioritize
 }

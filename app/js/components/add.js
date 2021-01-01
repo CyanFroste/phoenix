@@ -7,7 +7,7 @@ export default class Add {
 
   render() {
     this.container.innerHTML = `
-      <input type="text" name="id" id="anime-id" placeholder="Enter Anilist ID">
+      <input type="text" name="id" id="anime-id" placeholder="Enter Anilist ID to add">
       <button id="add" type="button">${icon('add', 20)}</button>
     `
   }

@@ -22,6 +22,12 @@ export default class Card {
     return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? 'font-dark' : 'font-light'
   }
 
+  priority() {
+    if (this.data.priority === 0) return 'L'
+    if (this.data.priority === 1) return 'N'
+    return 'H'
+  }
+
   alphaHex(percent) {
     // optional
     percent = Math.max(0, Math.min(100, percent))
@@ -50,6 +56,7 @@ export default class Card {
           <button type="button" class="fav">${
             this.data.favorite ? icon('fav', 20) : icon('fav-stroke', 20)
           }</button>
+          <button type="button" class="priority">${this.priority()}</button>
           <button type="button" class="status">${
             this.data.watched ? icon('check', 20) : icon('bookmark', 20)
           }</button>

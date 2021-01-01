@@ -1,14 +1,21 @@
 const { ipcRenderer } = require('electron')
 import Add from './components/add.js'
 import View from './components/view.js'
+import Err from './components/error.js'
 import { composeOptions, capitalize } from './utilities.js'
+import { sortPriority, sortDate } from './components/buttons.js'
 
-const error = document.getElementById('error')
+const toast = document.getElementById('toast')
 const title = document.getElementById('title')
+const sorter = document.getElementById('sorter')
 
-//  data
+//  states
 let data
 let filter = 'bookmarks'
+
+// sort orders
+let date = 0 // 1 = desc' : latest to last
+let priority = 1 // 2 = 'asc' : high to low, 0 = 'no order'
 
 // add component
 let add = new Add('.add')
@@ -27,16 +34,15 @@ async function render() {
   // get data
   data = await ipcRenderer.invoke('data')
   // render views
-  // conditionally based on filter
-  let list = data.bookmarks
-  if (filter === 'favorites') list = data.bookmarks.filter((entry) => entry.favorite)
-  if (filter === 'watched') list = data.bookmarks.filter((entry) => entry.watched)
-  new View('.view-holder', list).render()
+  new View('.view-holder', data.bookmarks, filter, { priority, date }).render()
 
   // render title
   title.innerHTML = capitalize(filter)
   if (filter === 'bookmarks') add.render()
   else add.unmount()
+
+  // render sorter
+  sorter.innerHTML = sortPriority(priority) + sortDate(date)
 
   // attach event listeners
   attachEventListeners()
@@ -44,38 +50,65 @@ async function render() {
 
 function attachEventListeners() {
   // add listeners to all fav buttons
-  document.querySelectorAll('.fav').forEach((btn) =>
+  document.querySelectorAll('.card .fav').forEach((btn) =>
     btn.addEventListener('click', async (e) => {
       try {
-        await ipcRenderer.invoke('anime:fav', btn.closest('.card').id)
+        const item = data.bookmarks.find((entry) => entry.id === +btn.closest('.card').id)
+        await ipcRenderer.invoke('anime:fav', item.id, !item.favorite)
         await render()
       } catch (err) {
-        error.innerHTML = err.message
+        new Err(toast, err.message, 2000)
       }
     })
   )
   // add listeners to all status buttons
-  document.querySelectorAll('.status').forEach((btn) =>
+  document.querySelectorAll('.card .status').forEach((btn) =>
     btn.addEventListener('click', async (e) => {
       try {
-        await ipcRenderer.invoke('anime:watched', btn.closest('.card').id)
+        const item = data.bookmarks.find((entry) => entry.id === +btn.closest('.card').id)
+        await ipcRenderer.invoke('anime:watched', item.id, !item.watched)
         await render()
       } catch (err) {
-        error.innerHTML = err.message
+        new Err(toast, err.message, 2000)
       }
     })
   )
   // add listeners to all remove buttons
-  document.querySelectorAll('.remove').forEach((btn) =>
+  document.querySelectorAll('.card .remove').forEach((btn) =>
     btn.addEventListener('click', async (e) => {
       try {
         const item = data.bookmarks.find((entry) => entry.id === +btn.closest('.card').id)
         await ipcRenderer.invoke('modal:open', composeOptions('remove', item))
       } catch (err) {
-        error.innerHTML = err.message
+        new Err(toast, err.message, 2000)
       }
     })
   )
+
+  // add listeners to all priority toggle buttons
+  document.querySelectorAll('.card .priority').forEach((btn) =>
+    btn.addEventListener('click', async (e) => {
+      try {
+        const item = data.bookmarks.find((entry) => entry.id === +btn.closest('.card').id)
+        await ipcRenderer.invoke('anime:priority', item.id, (item.priority + 1) % 3)
+        await render()
+      } catch (err) {
+        new Err(toast, err.message, 2000)
+      }
+    })
+  )
+
+  // add listeners to sorter buttons
+  document.querySelector('.sort-priority').addEventListener('click', async () => {
+    priority = (priority + 1) % 3
+    if (priority !== 0) date = 0
+    await render()
+  })
+  document.querySelector('.sort-date').addEventListener('click', async () => {
+    date = (date + 1) % 3
+    if (date !== 0) priority = 0
+    await render()
+  })
 
   // conditionally add listener to the add bookmark
   if (filter === 'bookmarks')
@@ -85,7 +118,7 @@ function attachEventListeners() {
         await ipcRenderer.invoke('anime:add', id)
         await render()
       } catch (err) {
-        error.innerHTML = err.message
+        new Err(toast, err.message, 2000)
       }
     })
 }
