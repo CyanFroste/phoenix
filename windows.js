@@ -16,10 +16,10 @@ function createMain() {
   return win
 }
 
-function createModal(parent) {
+function createPrompt(parent) {
   const win = new BrowserWindow({
-    width: 600,
-    height: 300,
+    width: 620,
+    height: 220,
     parent,
     modal: true, // this is causing a flickering issue
     show: false,
@@ -31,7 +31,7 @@ function createModal(parent) {
       nodeIntegration: true
     }
   })
-  win.loadFile('./app/modal.html')
+  win.loadFile('./app/prompt.html')
 
   win.once('ready-to-show', () => {
     win.show()
@@ -42,5 +42,5 @@ function createModal(parent) {
 
 module.exports = {
   createMain,
-  createModal
+  createPrompt
 }

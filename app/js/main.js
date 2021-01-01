@@ -85,7 +85,7 @@ function attachEventListeners() {
     btn.addEventListener('click', async (e) => {
       try {
         const item = data.bookmarks.find((entry) => entry.id === +btn.closest('.card').id)
-        await ipcRenderer.invoke('modal:open', composeOptions('remove', item))
+        await ipcRenderer.invoke('prompt:open', composeOptions('remove', item))
       } catch (err) {
         new Err(toast, err.message, 2000)
       }
@@ -121,13 +121,12 @@ function attachEventListeners() {
   if (filter === 'bookmarks')
     document.getElementById('add').addEventListener('click', async (e) => {
       if (adding) return new Err(toast, 'Specified anime is being added', 2000)
-      const id = document.getElementById('anime-id').value
+      const id = document.getElementById('anime-id')
       try {
         adding = true
-        await ipcRenderer.invoke('anime:add', id)
+        await ipcRenderer.invoke('anime:add', id.value)
         adding = false
         await render()
-        id.value = ''
       } catch (err) {
         adding = false
         new Err(toast, err.message, 2000)

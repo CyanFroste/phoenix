@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
-const { createMain, createModal } = require('./windows')
+const { createMain, createPrompt } = require('./windows')
 const { read } = require('./api/file')
 const { bookmark, favorite, unbookmark, watched, prioritize } = require('./api/anilist')
 
@@ -7,7 +7,7 @@ const { bookmark, favorite, unbookmark, watched, prioritize } = require('./api/a
 /** @type {BrowserWindow} */
 let main
 /** @type {BrowserWindow} */
-let modal
+let prompt
 
 app.whenReady().then(() => {
   main = createMain()
@@ -41,7 +41,7 @@ ipcMain.handle('anime:priority', async (e, id, priority) => {
   await prioritize(id, priority)
 })
 
-// modal
+// prompt
 let options
 let operation = async (type) => {
   switch (type) {
@@ -53,22 +53,22 @@ let operation = async (type) => {
   }
 }
 
-// request options passed from main window from the modal window
-ipcMain.handle('modal:options', (e) => {
+// request options passed from main window from the prompt window
+ipcMain.handle('prompt:options', (e) => {
   return options
 })
-// send the choice when modal window is closed
-ipcMain.handle('modal:close', async (e, choice) => {
+// send the choice when prompt window is closed
+ipcMain.handle('prompt:close', async (e, choice) => {
   if (choice) {
     await operation(options.operation)
     // re render the parent window
-    modal.getParentWindow().webContents.send('render')
+    prompt.getParentWindow().webContents.send('render')
   }
 })
 
-ipcMain.handle('modal:open', async (e, data) => {
+ipcMain.handle('prompt:open', async (e, data) => {
   options = data
-  modal = createModal(main)
+  prompt = createPrompt(main)
 })
 
 //

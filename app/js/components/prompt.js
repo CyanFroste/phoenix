@@ -1,10 +1,10 @@
-export default class Modal {
+export default class Prompt {
   constructor(id, options) {
-    this.modal = document.querySelector(id)
+    this.prompt = document.querySelector(id)
     this.options = options
   }
   render() {
-    this.modal.innerHTML = `
+    this.prompt.innerHTML = `
       <h1 class="title">${this.options.title}</h1>
       <div class="message">${this.options.message}</div>      
       <div class="controls"> 

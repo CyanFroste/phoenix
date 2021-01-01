@@ -90,8 +90,18 @@ a {
 #title-bar #draggable .title {
   color: #1b998b;
   font-size: 1.6rem;
-  margin-left: 20px;
+  margin-left: 10px;
   font-weight: 500;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#title-bar #draggable .title svg {
+  margin-right: 5px;
 }
 
 #title-bar .controls {

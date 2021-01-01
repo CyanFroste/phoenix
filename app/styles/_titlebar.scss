@@ -17,8 +17,13 @@
     .title {
       color: $primary;
       font-size: 1.6rem;
-      margin-left: $m;
+      margin-left: $s;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      svg {
+        margin-right: $xs;  
+      }
     }
   }
   .controls {
