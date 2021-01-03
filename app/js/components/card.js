@@ -1,6 +1,10 @@
 import { icon } from '../utilities.js'
 
 export default class Card {
+  fallback = {
+    background: '#141414'
+  }
+
   constructor(item) {
     this.data = item
   }
@@ -13,9 +17,11 @@ export default class Card {
   }
 
   fontColor() {
+    if (!this.data.cover.color) return 'font-light'
     /** @type {string} */
     let color = this.data.cover.color
     if (color.startsWith('#')) color = color.slice(1)
+    if (color.length === 3) color = color + color
     const r = parseInt(color.substring(0, 2), 16)
     const g = parseInt(color.substring(2, 4), 16)
     const b = parseInt(color.substring(4, 6), 16)
@@ -41,7 +47,7 @@ export default class Card {
       <div 
         class="card ${this.fontColor()}" 
         id=${this.data.id} 
-        style="background-color: ${this.data.cover.color}"
+        style="background-color: ${this.data.cover.color || this.fallback.background}"
       >
         <img src=${this.data.cover.image} />
         <div class="details">
