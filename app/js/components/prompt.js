@@ -1,10 +1,10 @@
 export default class Prompt {
-  constructor(id, options) {
-    this.prompt = document.querySelector(id)
+  constructor(container, options) {
+    this.container = container
     this.options = options
   }
   render() {
-    this.prompt.innerHTML = `
+    this.container.innerHTML = `
       <h1 class="title">${this.options.title}</h1>
       <div class="message">${this.options.message}</div>      
       <div class="controls"> 

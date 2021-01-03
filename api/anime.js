@@ -1,11 +1,11 @@
 const anilist = require('anilist-node')
-const { exists, find, remove, append, modify } = require('./file')
+const { exists, find, remove, append, modify } = require('./bookmarks')
 
 const Anilist = new anilist()
 
 /** @param {string|number} id */
 async function bookmark(id) {
-  if (id === '') throw new Error('message:Please enter a valid Anilist id')
+  if (id === '' || isNaN(+id)) throw new Error('message:Please enter a valid Anilist id')
   if (exists(+id)) throw new Error('message:Bookmark already exists')
   const res = await Anilist.media.anime(+id)
   if (!res.id) throw new Error('message:Anime not found on Anilist')
@@ -16,7 +16,7 @@ async function bookmark(id) {
     episodes: res.episodes,
     format: res.format,
     description: res.description,
-    cover: { image: res.coverImage.small, color: res.coverImage.color },
+    cover: { image: res.coverImage.large, color: res.coverImage.color },
     banner: res.bannerImage,
     genres: res.genres,
     tags: res.tags.map((t) => t.name),

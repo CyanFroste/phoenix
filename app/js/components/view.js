@@ -2,30 +2,29 @@ import Card from './card.js'
 import { compare } from '../utilities.js'
 
 export default class View {
-  constructor(id, list, filter, sortOrders) {
-    this.holder = document.querySelector(id)
+  constructor(holder, list, filter, sortOrders) {
+    this.holder = holder
     this.list = list
     this.filter = filter
     this.sortOrders = sortOrders
-
     this.list = this.applyFilter()
     this.applySorts()
-    // this.data = this.list.map((item) => new Card(item).render())
   }
 
   applySorts() {
-    // if both has no sort order return
-    if (this.sortOrders.priority === 0 && this.sortOrders.date === 0) return
-    if (this.sortOrders.date === 0) {
+    const { priority, date } = this.sortOrders
+    // if both has no sort order sort by desc order of date as it's the natural order of the list
+    if (priority === 0 && date === 0) return this.list.sort(compare.date)
+    if (date === 0) {
       // if priority has sort order
       this.list.sort(compare.priority)
-      if (this.sortOrders.priority === 1) return
+      if (priority === 1) return
       // reverse only if sort order is ascending
       return this.list.reverse()
     }
 
     this.list.sort(compare.date)
-    if (this.sortOrders.date === 1) return
+    if (date === 1) return
     // reverse only if sort order is ascending
     this.list.reverse()
   }

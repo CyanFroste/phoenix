@@ -60,7 +60,7 @@ export default class Card {
           <button type="button" class="status">${
             this.data.watched ? icon('check', 20) : icon('bookmark', 20)
           }</button>
-          <button type="button" class="source">${icon('link', 20)}</button>
+          <button type="button" class="preview">${icon('link', 20)}</button>
         </div>
       </div>
     `

@@ -56,6 +56,7 @@ button {
 
 input {
   font-family: "Jost", sans-serif;
+  letter-spacing: 0.025em;
 }
 
 a {
@@ -296,7 +297,7 @@ main .top .add button:hover {
   background-color: #1b998b;
 }
 
-main .view-holder {
+main #view-holder {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -305,7 +306,7 @@ main .view-holder {
   overflow: auto;
 }
 
-main .view-holder .view {
+main #view-holder .view {
   padding: 5px;
   width: 100%;
   height: -webkit-fit-content;
@@ -318,7 +319,7 @@ main .view-holder .view {
       grid-template-columns: repeat(auto-fill, 500px);
 }
 
-main .view-holder .card {
+main #view-holder .card {
   max-height: 200px;
   height: 200px;
   border-radius: 5px;
@@ -332,7 +333,7 @@ main .view-holder .card {
   position: relative;
 }
 
-main .view-holder .card img {
+main #view-holder .card img {
   min-width: 128px;
   width: 128px;
   -o-object-fit: cover;
@@ -340,7 +341,7 @@ main .view-holder .card img {
   margin-right: 10px;
 }
 
-main .view-holder .card .details {
+main #view-holder .card .details {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -351,17 +352,17 @@ main .view-holder .card .details {
           flex-direction: column;
 }
 
-main .view-holder .card .details div:not(:last-child) {
+main #view-holder .card .details div:not(:last-child) {
   margin-bottom: 5px;
 }
 
-main .view-holder .card .details div.name {
+main #view-holder .card .details div.name {
   font-size: 1.8rem;
   font-weight: 500;
   margin-bottom: 10px;
 }
 
-main .view-holder .card .controls {
+main #view-holder .card .controls {
   right: 0;
   height: 100%;
   padding: 5px;
@@ -375,28 +376,28 @@ main .view-holder .card .controls {
           flex-direction: column;
 }
 
-main .view-holder .card .controls button {
+main #view-holder .card .controls button {
   font-weight: 600;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
 }
 
-main .view-holder .card .controls button:not(:last-child) {
+main #view-holder .card .controls button:not(:last-child) {
   margin-bottom: 10px;
 }
 
-main .view-holder .card .controls .source {
+main #view-holder .card .controls .preview {
   justify-self: flex-end;
   margin-top: auto;
 }
 
-main .view-holder .card.font-light {
+main #view-holder .card.font-light {
   color: #fefeff;
 }
 
-main .view-holder .card.font-light svg,
-main .view-holder .card.font-light button {
+main #view-holder .card.font-light svg,
+main #view-holder .card.font-light button {
   color: #fefeff;
 }
 /*# sourceMappingURL=main.css.map */

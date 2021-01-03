@@ -28,6 +28,7 @@ $m: 20px;
 $l: 40px;
 $br: 5px;
 $border-light: 1px solid lighten($bg-alter, 70%);
+$border-light-alter: 1px solid lighten($bg-alter, 10%);
 $shadow: 0 3px 6px rgba($bg-alter, 0.16), 0 3px 6px rgba($bg-alter, 0.23);
 $shadow-light: 0 1px 3px rgba($bg-alter, 0.12), 0 1px 2px rgba($bg-alter, 0.24);
 
@@ -83,6 +84,7 @@ button {
 
 input {
   font-family: $body;
+  letter-spacing: 0.025em;
 }
 
 a {

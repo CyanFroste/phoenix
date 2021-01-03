@@ -1,7 +1,22 @@
+const { app } = require('electron')
 const fs = require('fs')
 const path = require('path')
 
-const DATA_PATH = path.join(__dirname, '..', 'data.json')
+// const DATA_PATH = path.join(__dirname, '..', 'data.json')
+const DATA_PATH = path.join(app.getPath('userData'), 'data.json')
+const DEFAULT_DATA = '{ "bookmarks": [] }'
+
+function init() {
+  // make this return promise?
+  fs.stat(DATA_PATH, (err) => {
+    if (err)
+      return fs.writeFile(DATA_PATH, DEFAULT_DATA, (err) => {
+        if (err) console.error(err)
+        console.log('Data file initialized at ' + DATA_PATH)
+      })
+    console.error('Data file already exists at ' + DATA_PATH)
+  })
+}
 
 function read() {
   return require(DATA_PATH)
@@ -70,20 +85,8 @@ function remove(id) {
   })
 }
 
-/**
- *  @param {any} data
- *  @returns {Promise<T>}
- */
-function write(data) {
-  return new Promise((resolve, reject) => {
-    fs.writeFile(DATA_PATH, JSON.stringify(data), (err) => {
-      if (err) return reject(err)
-      resolve('written')
-    })
-  })
-}
-
 module.exports = {
+  init,
   exists,
   read,
   append,

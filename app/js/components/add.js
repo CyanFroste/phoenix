@@ -1,8 +1,8 @@
 import { icon } from '../utilities.js'
 
 export default class Add {
-  constructor(id) {
-    this.container = document.querySelector(id)
+  constructor(container) {
+    this.container = container
   }
 
   render() {
