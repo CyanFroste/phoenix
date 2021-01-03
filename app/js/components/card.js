@@ -28,8 +28,8 @@ export default class Card {
     return 'H'
   }
 
-  alphaHex(percent) {
-    // optional
+  percentToHex(percent) {
+    // optional: convert percentage to hex for the alpha channel
     percent = Math.max(0, Math.min(100, percent))
     const int = Math.round((percent / 100) * 255)
     const hex = int.toString(16)

@@ -1,3 +1,4 @@
+/** `main` renderer */
 const { ipcRenderer } = require('electron')
 import Add from './components/add.js'
 import View from './components/view.js'
@@ -12,27 +13,30 @@ const sorter = document.getElementById('sorter')
 const viewHolder = document.getElementById('view-holder')
 const addContainer = document.querySelector('.add')
 
-//  states
+//  STATES
+/** @type {{bookmarks: object[]}} */
 let data
 let filter = 'bookmarks'
 let adding = false
-
 // sort orders
 let date = 1 // 1 = desc' : latest to last
 let priority = 0 // 2 = 'asc' : high to low, 0 = 'no order'
 
-// add component
+// `add` component
 let add = new Add(addContainer)
+// TODO: make the creation of View and Titlebar static and pass dependencies through render method
 
 window.addEventListener('load', async () => {
+  // TODO: defined earlier
   new Titlebar('phoenix')
   await render()
 
-  // server driven render
+  // server driven render handle
   ipcRenderer.on('render', async () => await render())
 
+  // attach listeners to all sidebar `filter` buttons
   document.querySelectorAll('.filter').forEach((btn) =>
-    btn.addEventListener('click', async (e) => {
+    btn.addEventListener('click', async () => {
       filter = btn.id
       /* no need to refetch data as any operation done on the entry will have
         previously refetched the data to reflect the changes */
@@ -54,6 +58,7 @@ async function render({
   // get data
   if (refetch) data = await ipcRenderer.invoke('data')
   // render view
+  // TODO: defined earlier, give the same functionality as `add` component
   if (view) new View(viewHolder, data.bookmarks, filter, { priority, date }).render()
 
   // render `add` when bookmarks is selected else unmount / clear
@@ -63,7 +68,7 @@ async function render({
 
   // render title
   if (title) titleSpace.innerHTML = capitalize(filter)
-  // render sorter
+  // render sorter controls
   if (sortBtns) sorter.innerHTML = sortPriority(priority) + sortDate(date)
 
   // attach event listeners
@@ -75,7 +80,7 @@ function attachEventListeners(view, sortBtns, adder) {
   if (view) {
     // add listeners to all preview buttons
     document.querySelectorAll('.card .preview').forEach((btn) =>
-      btn.addEventListener('click', async (e) => {
+      btn.addEventListener('click', async () => {
         try {
           const item = data.bookmarks.find((entry) => entry.id === +btn.closest('.card').id)
           await ipcRenderer.invoke('preview:open', item)
@@ -87,7 +92,7 @@ function attachEventListeners(view, sortBtns, adder) {
 
     // add listeners to all fav buttons
     document.querySelectorAll('.card .fav').forEach((btn) =>
-      btn.addEventListener('click', async (e) => {
+      btn.addEventListener('click', async () => {
         try {
           const item = data.bookmarks.find((entry) => entry.id === +btn.closest('.card').id)
           await ipcRenderer.invoke('anime:fav', item.id, !item.favorite)
@@ -103,7 +108,7 @@ function attachEventListeners(view, sortBtns, adder) {
     )
     // add listeners to all status buttons
     document.querySelectorAll('.card .status').forEach((btn) =>
-      btn.addEventListener('click', async (e) => {
+      btn.addEventListener('click', async () => {
         try {
           const item = data.bookmarks.find((entry) => entry.id === +btn.closest('.card').id)
           await ipcRenderer.invoke('anime:watched', item.id, !item.watched)
@@ -120,7 +125,7 @@ function attachEventListeners(view, sortBtns, adder) {
 
     // add listeners to all priority toggle buttons
     document.querySelectorAll('.card .priority').forEach((btn) =>
-      btn.addEventListener('click', async (e) => {
+      btn.addEventListener('click', async () => {
         try {
           const item = data.bookmarks.find((entry) => entry.id === +btn.closest('.card').id)
           await ipcRenderer.invoke('anime:priority', item.id, (item.priority + 1) % 3)
@@ -137,7 +142,7 @@ function attachEventListeners(view, sortBtns, adder) {
 
     // add listeners to all remove buttons
     document.querySelectorAll('.card .remove').forEach((btn) =>
-      btn.addEventListener('click', async (e) => {
+      btn.addEventListener('click', async () => {
         try {
           const item = data.bookmarks.find((entry) => entry.id === +btn.closest('.card').id)
           await ipcRenderer.invoke('prompt:open', composeOptions('remove', item))

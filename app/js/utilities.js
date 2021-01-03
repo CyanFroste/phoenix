@@ -1,4 +1,6 @@
-export function composeOptions(operation, item) {
+/** utility functions */
+export function composeOptions(operation, item = {}) {
+  // to compose prompt options
   if (operation === 'remove')
     return {
       operation,
@@ -10,8 +12,13 @@ export function composeOptions(operation, item) {
     }
 }
 
+/** to capitalize text
+ *  @param {string} text
+ *  @returns {string}
+ */
 export const capitalize = (text) => text.charAt(0).toUpperCase() + text.slice(1)
 
+/** comparators */
 export const compare = {
   date(a, b) {
     return b.date - a.date
@@ -21,6 +28,11 @@ export const compare = {
   }
 }
 
+/** svg icon to html templates
+ *  @param {string} type
+ *  @param {number} size
+ *  @returns {string}
+ */
 export function icon(type, size) {
   switch (type) {
     case 'delete':

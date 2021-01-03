@@ -8,65 +8,64 @@ const bookmarks = require('./api/bookmarks')
 let main
 /** @type {BrowserWindow} */
 let prompt
-/** @type {BrowserWindow} */
-let preview
 
 app.whenReady().then(() => {
-  bookmarks.init()
+  bookmarks.init() // Note! this uses asynchronous code, can possibly not initialize before creating window
   main = createMain()
 })
 
-// handlers
+// HANDLERS
+// send bookmarks data to renderer
 ipcMain.handle('data', bookmarks.read)
+// reload on renderer request
 ipcMain.handle('reload', (e) => e.sender.reload())
 
 // bookmark anime
-ipcMain.handle('anime:add', async (e, id) => await bookmark(id))
+ipcMain.handle('anime:add', async (_, id) => await bookmark(id))
 // unbookmark anime
-ipcMain.handle('anime:remove', async (e, id) => await unbookmark(id))
+ipcMain.handle('anime:remove', async (_, id) => await unbookmark(id))
 // mark anime as favorite
-ipcMain.handle('anime:fav', async (e, id, value) => await favorite(id, value))
+ipcMain.handle('anime:fav', async (_, id, value) => await favorite(id, value))
 // mark anime as watched
-ipcMain.handle('anime:watched', async (e, id, value) => await watched(id, value))
+ipcMain.handle('anime:watched', async (_, id, value) => await watched(id, value))
 // change priority of anime
-ipcMain.handle('anime:priority', async (e, id, priority) => await prioritize(id, priority))
+ipcMain.handle('anime:priority', async (_, id, priority) => await prioritize(id, priority))
 
-// prompt
+// PROMPT ACTIONS
+// STATE
 let options
+// prompt operations
 let operation = async (type) => {
   if (type === 'remove') await unbookmark(options.item.id)
 }
-
-ipcMain.handle('prompt:open', async (e, data) => {
+ipcMain.handle('prompt:open', async (_, data) => {
+  // save options data from caller window to state, then create prompt and pass that data on request
   options = data
   prompt = createPrompt(main)
 })
-
 // request options passed from main window from the prompt window
-ipcMain.handle('prompt:options', (e) => options)
-
+ipcMain.handle('prompt:options', () => options)
 // send the choice when prompt window is closed
-ipcMain.handle('prompt:choice', async (e, choice) => {
+ipcMain.handle('prompt:choice', async (_, choice) => {
   if (choice) {
     await operation(options.operation)
-    // re render the parent window
+    // re-render the parent window
     prompt.getParentWindow().webContents.send('render')
   }
   // prompt is also closed when choice is returned
   prompt = null
 })
 
-// preview
+// PREVIEW ACTIONS
+// STATE
 let previewData
-
-ipcMain.handle('preview:open', async (e, data) => {
+ipcMain.handle('preview:open', async (_, data) => {
   previewData = data
   createPreview()
 })
+ipcMain.handle('preview:data', async () => previewData)
 
-ipcMain.handle('preview:data', async (e) => previewData)
-
-// test
+// TEST HANDLE
 ipcMain.handle('test', () => console.log('faggoty faggoty faggoty fag'))
 // `quit` app unless it's macOS
 app.on('window-all-closed', () => {

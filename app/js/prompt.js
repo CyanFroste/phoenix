@@ -11,7 +11,6 @@ window.addEventListener('load', async () => {
   }
   // render prompt
   new Prompt(promptContainer, options).render()
-
   document.getElementById('ok').addEventListener('click', async () => await response(true))
   document.getElementById('cancel').addEventListener('click', async () => await response(false))
 })

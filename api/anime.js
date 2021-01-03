@@ -1,9 +1,12 @@
+/** interacts with `bookmarks` */
 const anilist = require('anilist-node')
-const { exists, find, remove, append, modify } = require('./bookmarks')
+const { exists, remove, append, modify } = require('./bookmarks')
 
+// anilist api
 const Anilist = new anilist()
 
-/** @param {string|number} id */
+/** Adds bookmark to the data file
+ *  @param {string|number} id */
 async function bookmark(id) {
   if (id === '' || isNaN(+id)) throw new Error('message:Please enter a valid Anilist id')
   if (exists(+id)) throw new Error('message:Bookmark already exists')
@@ -29,26 +32,29 @@ async function bookmark(id) {
   })
 }
 
-/** @param {string|number} id */
+/** Search an entry by id and mark/unmark it as favorite
+ *  @param {string|number} id */
 async function favorite(id, favorite) {
   if (!exists(+id)) throw new Error("message:Operation on entry that doesn't exist")
   return modify(+id, { favorite })
 }
-/** @param {string|number} id */
+/** Search an entry by id and mark/unmark it as watched
+ *  @param {string|number} id */
 async function watched(id, watched) {
   if (!exists(+id)) throw new Error("message:Operation on entry that doesn't exist")
   return modify(+id, { watched })
 }
 
-/** @param {string|number} id */
+/** Search an entry by id and remove it from bookmarks
+ *  @param {string|number} id */
 async function unbookmark(id) {
   if (!exists(+id)) throw new Error("message:Operation on entry that doesn't exist")
   return remove(+id)
 }
 
-/**
- * @param {string|number} id
- * @param {number} priority
+/** Search an entry by id and change its priority
+ *  @param {string|number} id
+ *  @param {0|1|2} priority
  */
 async function prioritize(id, priority) {
   if (!exists(+id)) throw new Error("message:Operation on entry that doesn't exist")

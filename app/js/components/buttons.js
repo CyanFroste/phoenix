@@ -2,7 +2,9 @@
 import { icon } from '../utilities.js'
 
 const SORT_ICON_SIZE = 16
-
+/**
+ *  @param {number} order
+ */
 export const sortPriority = (order) => `
   <button class="sort-priority">
     Priority ${
@@ -15,6 +17,9 @@ export const sortPriority = (order) => `
   </button>
 `
 
+/**
+ *  @param {number} order
+ */
 export const sortDate = (order) => `
   <button class="sort-date">
     Date ${

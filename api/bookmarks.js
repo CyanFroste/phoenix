@@ -1,13 +1,15 @@
+/** abstracts the fs operations */
 const { app } = require('electron')
 const fs = require('fs')
 const path = require('path')
 
-// const DATA_PATH = path.join(__dirname, '..', 'data.json')
+// the AppData directory
 const DATA_PATH = path.join(app.getPath('userData'), 'data.json')
-const DEFAULT_DATA = '{ "bookmarks": [] }'
+const DEFAULT_DATA = '{ "bookmarks": [] }' // default JSON data
 
 function init() {
-  // make this return promise?
+  // checks if file exists, create it with default data if it doesn't
+  // TODO?: make this return promise
   fs.stat(DATA_PATH, (err) => {
     if (err)
       return fs.writeFile(DATA_PATH, DEFAULT_DATA, (err) => {
@@ -18,11 +20,14 @@ function init() {
   })
 }
 
+/** returns the data read from data.json
+ *  @returns {{bookmarks: object[]}}
+ */
 function read() {
   return require(DATA_PATH)
 }
 
-/**
+/** check if an entry exists in data.bookmarks based on id
  *  @param {number} id
  *  @returns {boolean}
  */
@@ -30,13 +35,18 @@ function exists(id) {
   return read().bookmarks.some((entry) => entry.id === id)
 }
 
+/** returns an entry if found, based on it's id
+ *  @param {number} id
+ *  @returns {object}
+ */
 function find(id) {
   return read().bookmarks.find((entry) => entry.id === id)
 }
 
-/**
- *  @param {any} anime
- *  @returns {Promise<T>}
+/** adds new entry to data.bookmarks 
+ *  Note! it actually prepends lol
+ *  @param {object} anime
+ *  @returns {Promise<any>}
  */
 function append(entry) {
   return new Promise((resolve, reject) => {
@@ -49,10 +59,11 @@ function append(entry) {
   })
 }
 
-/**
+/** modifies the entry based on provided values
+ *  this method can accept multiple modifications
  *  @param {number} id
  *  @param {object} values
- *  @returns {Promise<T>}
+ *  @returns {Promise<any>}
  */
 function modify(id, values) {
   return new Promise((resolve, reject) => {
@@ -70,9 +81,9 @@ function modify(id, values) {
   })
 }
 
-/**
+/** removes an entry based on its id
  *  @param {number} id
- *  @returns {Promise<T>}
+ *  @returns {Promise<any>}
  */
 function remove(id) {
   return new Promise((resolve, reject) => {

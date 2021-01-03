@@ -1,5 +1,6 @@
 import { icon } from '../utilities.js'
 
+//  STATE
 /** @type {NodeJS.Timeout} error timer */
 let timer
 
@@ -22,12 +23,13 @@ export default class Err {
   }
 
   parse() {
+    // parse custom message from error
     return this.message.includes('message:')
       ? this.message.slice(this.message.indexOf('message:') + 8)
       : this.message
   }
 
   unmount() {
-    this.container.querySelector('.error') && (this.container.innerHTML = '')
+    this.container.querySelector('.error') && (this.container.innerHTML = null)
   }
 }
