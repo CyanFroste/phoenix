@@ -37,7 +37,8 @@ window.addEventListener('load', async () => {
   // attach listeners to all sidebar `filter` buttons
   document.querySelectorAll('.filter').forEach((btn) =>
     btn.addEventListener('click', async () => {
-      filter = btn.id
+      // filter = btn.id // older implementation
+      filter = btn.dataset.name
       /* no need to refetch data as any operation done on the entry will have
         previously refetched the data to reflect the changes */
       await render({

@@ -1,11 +1,11 @@
 {
   "name": "phoenix",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "",
   "main": "main.js",
   "scripts": {
     "start": "electron .",   
-    "package": "electron-packager . phoenix --overwrite --asar --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=build --version-string.CompanyName=\"Cyan Froste\" --version-string.FileDescription=\"Cyan Froste\" --version-string.ProductName=\"phoenix\""
+    "build": "electron-packager . phoenix --overwrite --asar --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=build --version-string.CompanyName=\"Cyan Froste\" --version-string.FileDescription=\"Cyan Froste\" --version-string.ProductName=\"phoenix\""
   },
   "keywords": [],
   "author": "",

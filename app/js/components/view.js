@@ -32,6 +32,7 @@ export default class View {
   applyFilter() {
     if (this.filter === 'favorites') return this.list.filter((entry) => entry.favorite)
     if (this.filter === 'watched') return this.list.filter((entry) => entry.watched)
+    if (this.filter === 'not watched') return this.list.filter((entry) => !entry.watched)
     return this.list
   }
 
