@@ -4,7 +4,7 @@
 `phoenix` is an anime bookmarking app written on `electron.js`.
 It uses [Anilist](https://anilist.co/search/anime) API to add bookmarks and localizes the bookmarked data on the user's PC.  
 
-![](./screenshots/screen-main.png)
+![](./screenshots/main.jpg)
 
 To start in development mode.
 ```

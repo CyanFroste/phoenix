@@ -20,7 +20,7 @@ export default class Titlebar {
   render() {
     this.titlebar.innerHTML = `
       <div id="draggable">
-        <div class="title">${icon('logo', 24)}${this.title}</div>
+        <div class="title">${this.title}</div>
       </div>
       <div class="controls">
         <button class="close" type="button">${icon('close', 20)}</button>
